@@ -26,16 +26,17 @@ INSTRUCTIONS
         }
         "@
 
-        #disable the server specified in $json
-            Invoke-NSCustomQuery -Address "CTX-NS-TST-01" -ResourceType "server" -method Post -Body $json -ContentType application/vnd.com.citrix.netscaler.server+json -AllowHTTPAuth -action disable -verbose -WebSession $session
-            #Note that an error will be returned indicating null output.  Not sure how else to handle this, as null output is usually bad.  Will work on it...
+    ###disable the server specified in $json
+        Invoke-NSCustomQuery -Address "CTX-NS-TST-01" -ResourceType "server" -method Post -Body $json -ContentType application/vnd.com.citrix.netscaler.server+json -AllowHTTPAuth -action disable -verbose -WebSession $session
+        #Note that an error will be returned indicating null output.  Not sure how else to handle this, as null output is usually bad.  Will work on it...
             
-        #verify the change:
-            Invoke-NSCustomQuery -Address CTX-NS-TST-01 -ResourceType server -ResourceName SomeServerName -WebSession $session -AllowHTTPAuth
+    ###verify the change:
+        Invoke-NSCustomQuery -Address CTX-NS-TST-01 -ResourceType server -ResourceName SomeServerName -WebSession $session -AllowHTTPAuth
 
-        #Save the config on CTX-NS-TST-01
-            Save-NSConfig -WebSession $session -Address CTX-NS-TST-01 -AllowHTTPAuth
+    ###Save the config on CTX-NS-TST-01
+        Save-NSConfig -WebSession $session -Address CTX-NS-TST-01 -AllowHTTPAuth
 
+		
 Further References
 ------------------
  
@@ -44,5 +45,5 @@ Further References
 * http://support.citrix.com/servlet/KbServlet/download/30602-102-681756/NS-Nitro-Gettingstarted-guide.pdf
 * http://blogs.citrix.com/2014/02/04/using-curl-with-the-netscaler-nitro-rest-api/
 * There is no NetScaler REST API documentation available online.  It is tucked deep in the NetScaler bits.  If you have the bits for 10.1, extract them from here:  build-10.1-119.7_nc.tgz\build_dara_119_7_nc.tar\ns-10.1-119.7-nitro-rest.tgz\ns-10.1-119.7-nitro-rest.tar\ns_nitro-rest_dara_119_7.tar\.  This should be available online at some point...
-* My first stab at using this API is published in the TechNet Gallery, more information and screenshots with similar data can be [found here](http://gallery.technet.microsoft.com/scriptcenter/Invoke-NSCustomQuery-67dd27b5)
+
 
