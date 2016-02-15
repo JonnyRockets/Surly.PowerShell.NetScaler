@@ -56,7 +56,7 @@ Function Connect-NSSession
 {
     "login":  {
                   "username":  "$($Credential.UserName)",
-                  "password":  "$($Credential.GetNetworkCredential().password)",
+                  "password":  "$($Credential.GetNetworkCredential().Password)",
                   "timeout": $timeout
               }
 }
@@ -106,15 +106,20 @@ Function Connect-NSSession
             $Date = (Get-Date).AddSeconds($Timeout)
             Write-Verbose "Cookie set to expire in '$Timeout' seconds, at $Date"
             #Add Address to the object for later functions
-            $sess | Add-Member -MemberType NoteProperty -Name Address -Value $Address
-            $sess | Add-Member -MemberType NoteProperty -Name AllowHTTPAuth -Value $AllowHTTPAuth
+            #$sess | Add-Member -MemberType NoteProperty -Name Address -Value $Address
+            #$sess | Add-Member -MemberType NoteProperty -Name AllowHTTPAuth -Value $AllowHTTPAuth
 
             #Now check if server is Primary
-            If (($sess | GetNSisPrimary))
+            If (($sess | GetNSisPrimary -Address $Address -AllowHTTPAuth $AllowHTTPAuth))
             {
-                $Global:NSSession = $sess
-                $Global:NSEnumeration = Get-NSObjectList -ObjectType config
-                $Global:NSEnumeration += Get-NSObjectList -ObjectType stat
+                $Global:NSSession = [PSCustomObject]@{
+                    Session = $sess
+                    Address = $Address
+                    AllowHTTPAuth = $AllowHTTPAuth
+                    Enumeration = @()
+                }
+                $Global:NSSession.Enumeration += Get-NSObjectList -ObjectType config
+                $Global:NSSession.Enumeration += Get-NSObjectList -ObjectType stat
 
             }
             Else

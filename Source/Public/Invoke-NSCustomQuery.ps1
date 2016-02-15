@@ -153,7 +153,7 @@ $json = @"
         [Parameter( ParameterSetName='SimpleQuery' )]
         [Parameter( ParameterSetName='AdvancedQuery' )]
         [ValidateScript({
-            If ($Global:NSEnumeration -contains $_)
+            If ($Global:NSSession.Enumeration -contains $_)
             {
                 $true
             }
@@ -254,7 +254,7 @@ $json = @"
     $IRMParam = @{
         Method = $Method
         URI = $Uri
-        WebSession = $NSSession
+        WebSession = $NSSession.Session
         ErrorAction = "Stop"
     }
     If($ContentType)

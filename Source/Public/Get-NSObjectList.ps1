@@ -33,7 +33,7 @@ Function Get-NSObjectList
         [string]$ObjectType = "config"
     )
 
-    #Check for $NSSession
+    #Check for $NSSession.Session
     ValidateNSSession
 
     #Define the URI
@@ -43,7 +43,7 @@ Function Get-NSObjectList
     $IRMParam = @{
         Method = "Get"
         URI = $Uri
-        WebSession = $NSSession
+        WebSession = $NSSession.Session
         ErrorAction = "Stop" 
     }
 
