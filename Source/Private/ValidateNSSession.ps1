@@ -1,9 +1,12 @@
 ﻿Function ValidateNSSession {
     <#
     #>
-
-    If ($NSSession -isnot [Microsoft.PowerShell.Commands.WebRequestSession])
+    $Properties = $NSSession | Get-Member -MemberType NoteProperty | Select -ExpandProperty Name
+    ForEach ($Prop in "Session","Enumeration")
     {
-        Throw "No connection with an NS has been established.  Run Connect-NSSession to create a session."
+        If ($Properties -notcontains $Prop)
+        {
+            Throw "No connection with an NS has been established.  Run Connect-NSSession to create a session."
+        }
     }
 }

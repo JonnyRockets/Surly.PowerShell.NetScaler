@@ -1,6 +1,6 @@
 PSNetscaler
 ===========
-This is a permanent fork of RamblingCookieMonster's Citrix.Netscaler (https://github.com/RamblingCookieMonster/Citrix.NetScaler) module.  Warren's new position unfortunately lacks a Netscaler for him to work on, but he has given me permission to permanently fork his code and continue work on it.  
+This is a permanent fork of RamblingCookieMonster's [Citrix.Netscaler](https://github.com/RamblingCookieMonster/Citrix.NetScaler) module.  Warren's new position unfortunately lacks a Netscaler for him to work on, but he has given me permission to permanently fork his code and continue work on it.  
 
 SYNOPSIS
 --------
@@ -15,6 +15,8 @@ INSTRUCTIONS
 
 	###Connect a session to your Netscaler, call it: nstestmgmt1
 		$Session = Connect-NSSession -Address nstestmgmt1 -Credential (Get-Credential)
+		#This will create a permanent global variable:  $NSSession
+		#Contains web session information
 		
     ###This example illustrates how to disable a server and save the NetScaler config
         #Build the JSON for a server you want to disable.  !NOTE! you must not indent this.  Remove all indentation.
@@ -26,15 +28,29 @@ INSTRUCTIONS
         }
         "@
 
-    ###disable the server specified in $json
-        Invoke-NSCustomQuery -Address "CTX-NS-TST-01" -ResourceType "server" -method Post -Body $json -ContentType application/vnd.com.citrix.netscaler.server+json -AllowHTTPAuth -action disable -verbose -WebSession $session
+    ###Disable the server specified in $json
+        Invoke-NSCustomQuery -Address "CTX-NS-TST-01" -ResourceType "server" -method Post -Body $json -ContentType application/vnd.com.citrix.netscaler.server+json -AllowHTTPAuth -action disable -verbose
         #Note that an error will be returned indicating null output.  Not sure how else to handle this, as null output is usually bad.  Will work on it...
             
-    ###verify the change:
-        Invoke-NSCustomQuery -Address CTX-NS-TST-01 -ResourceType server -ResourceName SomeServerName -WebSession $session -AllowHTTPAuth
+    ###Verify the change:
+        Invoke-NSCustomQuery -Address CTX-NS-TST-01 -ResourceType server -ResourceName SomeServerName -AllowHTTPAuth
 
     ###Save the config on CTX-NS-TST-01
-        Save-NSConfig -WebSession $session -Address CTX-NS-TST-01 -AllowHTTPAuth
+        Save-NSConfig -Address CTX-NS-TST-01 -AllowHTTPAuth
+
+
+Contributing to the Project
+---------------------------
+Please read the CONTRIBUTING.md file for contributing guidelines
+
+
+TODO Items
+----------
+1. Get-VitalStats
+2. Get-Bindings 
+3. Pester test framework
+4. Add $NSEnumeration into $NSSession.  Make $NSSession an object with both data.  
+
 
 		
 Further References

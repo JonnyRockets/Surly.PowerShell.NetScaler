@@ -1,7 +1,6 @@
-﻿Function Disconnect-NSServer {
+﻿Function Disconnect-NSSession {
     <#
     #>
 
     $Global:NSSession = $null
-    $Global:NSEnumeration = @()
 }
