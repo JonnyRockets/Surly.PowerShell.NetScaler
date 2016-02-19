@@ -47,9 +47,9 @@ Please read the CONTRIBUTING.md file for contributing guidelines
 TODO Items
 ----------
 1. Get-VitalStats
-2. Get-Bindings 
+2. Get-Bindings - contemplating "class-like" data, to be stored in $NSSession that would define each object, it's upstream/downstream bindings, what fields to show as default, etc.
 3. Pester test framework
-4. Add $NSEnumeration into $NSSession.  Make $NSSession an object with both data.  
+4. ~Add $NSEnumeration into $NSSession.  Make $NSSession an object with both data.~
 
 
 		
