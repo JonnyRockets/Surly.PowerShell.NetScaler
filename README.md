@@ -9,7 +9,7 @@ This module is designed to let you work with a Citrix Netscaler from within Powe
 
 INSTRUCTIONS
 ------------
-1. Download this repo, Unblock the file(s), copy the Citrix.NetScaler folder to an appropriate module location
+1. Download this repo, Unblock the file(s), copy the PS.NetScaler folder to an appropriate module location
 2. Import-Module pathToRepo\PSNetscaler
 3. Get-Command -Module PSNetscaler
 
