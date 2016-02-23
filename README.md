@@ -9,7 +9,7 @@ This module is designed to let you work with a Citrix Netscaler from within Powe
 
 INSTRUCTIONS
 ------------
-1. Download this repo, Unblock the file(s), copy the Citrix.NetScaler folder to an appropriate module location
+1. Download this repo, Unblock the file(s), copy the PS.NetScaler folder to an appropriate module location
 2. Import-Module pathToRepo\PSNetscaler
 3. Get-Command -Module PSNetscaler
 
@@ -47,9 +47,9 @@ Please read the CONTRIBUTING.md file for contributing guidelines
 TODO Items
 ----------
 1. Get-VitalStats
-2. Get-Bindings 
+2. Get-Bindings - contemplating "class-like" data, to be stored in $NSSession that would define each object, it's upstream/downstream bindings, what fields to show as default, etc.
 3. Pester test framework
-4. Add $NSEnumeration into $NSSession.  Make $NSSession an object with both data.  
+4. ~~Add $NSEnumeration into $NSSession.  Make $NSSession an object with both data.~~
 
 
 		
