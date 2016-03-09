@@ -36,3 +36,5 @@
     #Retrieve server data
     Invoke-NSCustomQuery -ResourceType lbvserver | Where Name -like $Name
 }
+
+#Get-NSLBvServer

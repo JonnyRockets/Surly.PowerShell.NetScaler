@@ -21,16 +21,22 @@ Function GetNSisPrimary {
     #>
     [CmdletBinding(DefaultParameterSetName="None")]
     Param(
-        [Parameter(ValueFromPipeline=$true,
+        [Parameter(
+            ValueFromPipeline=$true,
             Mandatory=$true,
             ParameterSetName="Sess")]
         [Microsoft.PowerShell.Commands.WebRequestSession]$Session,
-        [Parameter(Mandatory=$true,
+
+        [Parameter(
+            Mandatory=$true,
             ParameterSetName="Sess")]
         [string]$Address,
-        [Parameter(Mandatory=$true,
+
+        [Parameter(
+            Mandatory=$true,
             ParameterSetName="Sess")]
-        [bool]$AllowHTTPAuth
+        [ValidateSet("http","https")]
+        [string]$ConnectProtocol
     )
 
     PROCESS {
@@ -40,7 +46,7 @@ Function GetNSisPrimary {
             $ThisSession = [PSCustomObject]@{
                 Session = $NSSession.Session
                 Address = $NSSession.Address
-                AllowHTTPAuth = $NSSession.AllowHTTPAuth
+                ConnectProtocol = $NSSession.ConnectProtocol
             }
         }
         Else
@@ -48,12 +54,12 @@ Function GetNSisPrimary {
             $ThisSession = [PSCustomObject]@{
                 Session = $Session
                 Address = $Address
-                AllowHTTPAuth = $AllowHTTPAuth
+                ConnectProtocol = $ConnectProtocol
             }
         }
         
         #Define the URI
-        $Uri = "https://$($ThisSession.Address)/nitro/v1/stat/ns/"
+        $Uri = "$($ThisSession.ConnectProtocol)://$($ThisSession.Address)/nitro/v1/stat/ns/"
     
         #Build up invoke-Restmethod parameters based on input
         $IRMParam = @{
@@ -65,7 +71,7 @@ Function GetNSisPrimary {
 
         #Collect Results
         $Result = $null
-        $Result = CallInvokeRESTMethod -IRMParam $IRMParam -AllowHTTPAuth $ThisSession.AllowHTTPAuth -ErrorAction Stop
+        $Result = Invoke-RestMethod @IRMParam
 
         #Take action depending on -raw parameter and the data in $Result
         If ($Result)
