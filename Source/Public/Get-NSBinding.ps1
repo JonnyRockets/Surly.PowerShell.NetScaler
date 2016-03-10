@@ -2,6 +2,8 @@
     <#
     .SYNOPSYS
         Retrieve the bindings of NS objects
+    .LINK
+        https://github.com/martin9700/PSNetScaler
     #>
     [CmdletBinding()]
     Param (
