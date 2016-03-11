@@ -1,6 +1,6 @@
 PSNetscaler
 ===========
-This is a permanent fork of RamblingCookieMonster's [Citrix.Netscaler](https://github.com/RamblingCookieMonster/Citrix.NetScaler) module.  Warren's new position unfortunately lacks a Netscaler for him to work on, but he has given me permission to permanently fork his code and continue work on it.  
+This is a permanent fork of RamblingCookieMonster's [Citrix.Netscaler](https://github.com/RamblingCookieMonster/Citrix.NetScaler) module.  Unfortunately, Warren's new position lacks a Netscaler for him to work on, but he has given me permission to permanently fork his code and continue work on it.  
 
 SYNOPSIS
 --------
@@ -36,7 +36,7 @@ INSTRUCTIONS
         Invoke-NSCustomQuery -Address CTX-NS-TST-01 -ResourceType server -ResourceName SomeServerName -AllowHTTPAuth
 
     ###Save the config on CTX-NS-TST-01
-        Save-NSConfig -Address CTX-NS-TST-01 -AllowHTTPAuth
+        Save-NSConfig 
 
 
 Contributing to the Project
@@ -46,10 +46,11 @@ Please read the CONTRIBUTING.md file for contributing guidelines
 
 TODO Items
 ----------
-1. Get-VitalStats
+1. ~~Get-NSVitalStats - Use for getting stats on your NetScaler~~
 2. Get-Bindings - contemplating "class-like" data, to be stored in $NSSession that would define each object, it's upstream/downstream bindings, what fields to show as default, etc.
 3. Pester test framework
 4. ~~Add $NSEnumeration into $NSSession.  Make $NSSession an object with both data.~~
+5. Add XenApp/Desktop statistics to Get-NSVitalStats
 
 
 		

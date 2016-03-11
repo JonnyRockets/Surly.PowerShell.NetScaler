@@ -23,7 +23,7 @@
     .FUNCTIONALITY
         NetScaler
     .LINK
-        http://github.com/RamblingCookieMonster/Citrix.NetScaler
+        https://github.com/martin9700/PSNetScaler
     #>
     [CmdletBinding()]
     Param (
@@ -36,3 +36,5 @@
     #Retrieve server data
     Invoke-NSCustomQuery -ResourceType lbvserver | Where Name -like $Name
 }
+
+#Get-NSLBvServer

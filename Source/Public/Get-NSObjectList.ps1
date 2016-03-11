@@ -37,7 +37,7 @@ Function Get-NSObjectList
     ValidateNSSession
 
     #Define the URI
-    $Uri = "https://$($NSSession.Address)/nitro/v1/$ObjectType/"
+    $Uri = "$($NSSession.ConnectProtocol)://$($NSSession.Address)/nitro/v1/$ObjectType/"
 
     #Build up invoke-Restmethod parameters based on input
     $IRMParam = @{
@@ -48,7 +48,7 @@ Function Get-NSObjectList
     }
 
     #Collect results
-    $Result = CallInvokeRESTMethod -IRMParam $IRMParam -AllowHTTPAuth $NSSession.AllowHTTPAuth -ErrorAction Stop
+    $Result = Invoke-RestMethod @IRMParam
     
     #Expand out the list, or provide full response if we got an unexpected errorcode
     If ($Result)

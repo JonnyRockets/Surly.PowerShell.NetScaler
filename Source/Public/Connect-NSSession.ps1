@@ -70,6 +70,7 @@ Function Connect-NSSession
         ContentType = "application/json"
         SessionVariable = "sess"
     }
+    $ConnectProtocol = "https"
     
     #Invoke the REST Method to get a cookie using 'SessionVariable'
     Write-Verbose "Running Invoke-RESTMethod with these parameters:`n$($IRMParam | Format-Table -AutoSize -wrap | Out-String)"
@@ -81,13 +82,14 @@ Function Connect-NSSession
     
     Catch
     {
-        Write-Warning "Error calling Invoke-RESTMethod.  Fall back to HTTP=$AllowHTTPAuth. Error details:`n $_"
+        Write-Warning "Error calling Invoke-RESTMethod.  Fall back to HTTP=$AllowHTTPAuth. Error details: $_"
         if($AllowHTTPAuth)
         {
             Try
             {
                 Write-Verbose "Reverting to HTTP"
                 $IRMParam["URI"] = $IRMParam["URI"] -replace "^https","http"
+                $ConnectProtocol = "http"
                 Invoke-RestMethod @IRMParam
             }
             Catch
@@ -105,27 +107,27 @@ Function Connect-NSSession
             #Provide feedback on expiration
             $Date = (Get-Date).AddSeconds($Timeout)
             Write-Verbose "Cookie set to expire in '$Timeout' seconds, at $Date"
-            #Add Address to the object for later functions
-            #$sess | Add-Member -MemberType NoteProperty -Name Address -Value $Address
-            #$sess | Add-Member -MemberType NoteProperty -Name AllowHTTPAuth -Value $AllowHTTPAuth
+            $sess | Add-Member -MemberType NoteProperty -Name ConnectProtocol -Value $ConnectProtocol
 
             #Now check if server is Primary
-            If (($sess | GetNSisPrimary -Address $Address -AllowHTTPAuth $AllowHTTPAuth))
+            If (($sess | GetNSisPrimary -Address $Address -ConnectProtocol $ConnectProtocol))
             {
-                $Global:NSSession = [PSCustomObject]@{
-                    Session = $sess
-                    Address = $Address
-                    AllowHTTPAuth = $AllowHTTPAuth
-                    Enumeration = @()
-                }
-                $Global:NSSession.Enumeration += Get-NSObjectList -ObjectType config
-                $Global:NSSession.Enumeration += Get-NSObjectList -ObjectType stat
-
+                $Primary = $true
             }
             Else
             {
-                Write-Error "$Address is not primary in the HA pair, aborting connection"
+                Write-Warning "$Address is not primary in the HA pair, configuration will not be allowed"
+                $Primary = $false
             }
+            $Global:NSSession = [PSCustomObject]@{
+                Session = $sess
+                Address = $Address
+                ConnectProtocol = $ConnectProtocol
+                Primary = $Primary
+                Enumeration = @()
+            }
+            $Global:NSSession.Enumeration += Get-NSObjectList -ObjectType config
+            $Global:NSSession.Enumeration += Get-NSObjectList -ObjectType stat
         }
         Else
         {
@@ -136,3 +138,5 @@ Function Connect-NSSession
         Write-Error "Invoke-RESTMethod output was empty.  Try troubleshooting with -verbose switch"
     }
 }
+
+

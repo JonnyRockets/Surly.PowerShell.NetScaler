@@ -1,6 +1,13 @@
 ﻿Function Disconnect-NSSession {
     <#
+    .SYNOPSIS
+        Remove the NSSession variable
+    .LINK
+        https://github.com/martin9700/PSNetScaler
     #>
 
-    $Global:NSSession = $null
+    If ($Global:NSSession)
+    {
+        Clear-Variable -Name NSSession -Scope Global
+    }
 }

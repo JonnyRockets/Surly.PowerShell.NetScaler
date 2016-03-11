@@ -204,7 +204,7 @@ $json = @"
     )
 
     #Define the URI
-    $Uri = "https://$($NSSession.Address)/nitro/v1/$($QueryType.tolower())/"
+    $Uri = "$($NSSession.ConnectProtocol)://$($NSSession.Address)/nitro/v1/$($QueryType.tolower())/"
     
     #Build up the URI for non-list queries
     If (-not $List)
@@ -277,7 +277,7 @@ $json = @"
     {
         If ($PsCmdlet.ShouldProcess("IRM Parameters:`n $($IRMParam | Format-Table -AutoSize -wrap | out-string)", "Invoke-RESTMethod with the following parameters"))
         {
-            $Result = CallInvokeRESTMethod
+            $Result = Invoke-RestMethod @IRMParam
         }
         Else
         {
@@ -286,7 +286,7 @@ $json = @"
     }
     Else
     {
-        $Result = CallInvokeRESTMethod
+        $Result = Invoke-RestMethod @IRMParam
     }
 
     #Display the results
