@@ -1,5 +1,5 @@
-PSNetscaler
-===========
+Surly.PowerShell.NetScaler
+==========================
 This is a permanent fork of RamblingCookieMonster's [Citrix.Netscaler](https://github.com/RamblingCookieMonster/Citrix.NetScaler) module.  Unfortunately, Warren's new position lacks a Netscaler for him to work on, but he has given me permission to permanently fork his code and continue work on it.  
 
 SYNOPSIS
@@ -10,8 +10,8 @@ This module is designed to let you work with a Citrix Netscaler from within Powe
 INSTRUCTIONS
 ------------
 1. Download this repo, Unblock the file(s), copy the PS.NetScaler folder to an appropriate module location
-2. Import-Module pathToRepo\PSNetscaler
-3. Get-Command -Module PSNetscaler
+2. Import-Module pathToRepo\Surly.PowerShell.NetScaler
+3. Get-Command -Module Surly.PowerShell.NetScaler
 
 	###Connect a session to your Netscaler, call it: nstestmgmt1
 		$Session = Connect-NSSession -Address nstestmgmt1 -Credential (Get-Credential)
