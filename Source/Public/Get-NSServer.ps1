@@ -27,12 +27,12 @@
     #>
     [CmdletBinding()]
     Param (
-        [string]$Name = "*"
+        [string]$Name
     )
 
     #Validate NSSession
     ValidateNSSession
 
     #Retrieve server data
-    Invoke-NSCustomQuery -ResourceType server | Where Name -like $Name
+    Invoke-NSCustomQuery -ResourceType server -FilterTable @{Name=$Name}
 }
