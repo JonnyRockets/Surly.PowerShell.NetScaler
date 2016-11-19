@@ -6,7 +6,7 @@
     {
         If ($Properties -notcontains $Prop)
         {
-            Throw "No connection with an NS has been established.  Run Connect-NSSession to create a session."
+            Write-Error "No connection with an NS has been established.  Run Connect-NSSession to create a session." -ErrorAction Stop
         }
     }
 }

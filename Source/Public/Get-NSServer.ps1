@@ -23,7 +23,7 @@
     .FUNCTIONALITY
         NetScaler
     .LINK
-        https://github.com/martin9700/PSNetScaler
+        https://github.com/martin9700/Surly.PowerShell.NetScaler
     #>
     [CmdletBinding()]
     Param (
